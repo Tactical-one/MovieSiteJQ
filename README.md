@@ -1,1 +1,1 @@
-A mini movie website for a class lab
+A mini movie website project
