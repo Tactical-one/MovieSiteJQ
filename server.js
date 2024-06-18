@@ -37,11 +37,58 @@ app.get('/packages', async function(req, res) {
 });
 
 app.get('/catalog', async function(req, res) {
-  res.render('catalog', { title: 'Movie Catalog Page', layout: 'layouts/layout' });  // route to load catalog.ejs
+  res.render('catalog', { title: 'Movie Catalog Page', layout: 'layouts/layout', articles: articles });  // route to load catalog.ejs
 });
 
 app.listen(port, () => console.log(`Server running at http://localhost:${port}`));
 
+
+// array of catalog objects on catalog page
+const articles = [
+  {
+    imageSrc: "https://substackcdn.com/image/fetch/f_auto,q_auto:good,fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2F669e71fe-0f5c-48b8-987b-be8d0bde14f1_1280x720.jpeg",
+    altText: "Civil War",
+    date: "25 Dec 2024",
+    title: "Civil War",
+    summary: "Good spokes will give the entire wheelset more tension, accuracy, and rigidity, allowing the rider to accelerate satisfactorily."
+  },
+  {
+    imageSrc: "https://i1.wp.com/cornellsun.com/wp-content/uploads/2023/06/bridgerton-scaled.jpg?fit=1170%2C658&ssl=1",
+    altText: "Bridgerton",
+    date: "11 Nov 2024",
+    title: "Bridgerton",
+    summary: "Replacing worn chains with the same model from the same brand is easy, but even this is fraught with complications."
+  },
+  {
+    imageSrc: "https://www.sky.at/static/img/serienhighlights/sky_22-11_house-of-the-dragon_sub_s.jpg",
+    altText: "House of the Dragon",
+    date: "5 Oct 2024",
+    title: "House of the Dragon",
+    summary: "Different riding styles call for purpose-built bike seats. These expert-approved saddles earned our recommendation."
+  },
+  {
+    imageSrc: "https://lumiere-a.akamaihd.net/v1/images/the-acolyte-cast-article-feature_e52a6450.jpeg?region=0,50,1600,800",
+    altText: "The Acolyte",
+    date: "29 Sep 2024",
+    title: "The Acolyte",
+    summary: "Different riding styles call for purpose-built bike seats. These expert-approved saddles earned our recommendation."
+  },
+  {
+    imageSrc: "https://flixchatter.net/wp-content/uploads/2020/10/enolaholmes-poster.jpg",
+    altText: "Enola Holmes",
+    date: "5 Aug 2024",
+    title: "Enola Holmes",
+    summary: "Different riding styles call for purpose-built bike seats. These expert-approved saddles earned our recommendation."
+  },
+  {
+    imageSrc: "https://i.ytimg.com/vi/N70NfvtOINI/maxresdefault.jpg",
+    altText: "The Crown",
+    date: "5 Oct 2024",
+    title: "The Crown",
+    summary: "Different riding styles call for purpose-built bike seats. These expert-approved saddles earned our recommendation."
+  }
+  // ... add more articles as needed
+];
 
 
 // contact form handling
