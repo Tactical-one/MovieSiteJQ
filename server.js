@@ -40,6 +40,11 @@ app.get('/catalog', async function(req, res) {
   res.render('catalog', { title: 'Movie Catalog Page', layout: 'layouts/layout', articles: articles });  // route to load catalog.ejs
 });
 
+// Error handling for invalid routes
+app.use((req, res, next) => {
+  res.status(404).render('404', { title: 'Page Not Found', layout: 'layouts/layout' });
+});
+
 app.listen(port, () => console.log(`Server running at http://localhost:${port}`));
 
 
@@ -142,5 +147,3 @@ app.delete('/contacts/:id', (req, res) => {
     res.status(404).json({message: 'Contact not found'}); //return 404 if not found  
   }
 });
-
-
