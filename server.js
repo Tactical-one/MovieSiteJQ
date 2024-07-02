@@ -29,7 +29,7 @@ app.get('/inspiration', async function(req, res) {
 });
 
 app.get('/contact', async function(req, res) {
-  res.render('contact', { title: 'Contact Page', layout: 'layouts/layout' });  // route to load contact.ejs
+  res.rnder('contact', { title: 'Contact Page', layout: 'layouts/layout' });  // route to load contact.ejs
 });
 
 app.get('/packages', async function(req, res) {
@@ -38,11 +38,6 @@ app.get('/packages', async function(req, res) {
 
 app.get('/catalog', async function(req, res) {
   res.render('catalog', { title: 'Movie Catalog Page', layout: 'layouts/layout', articles: articles });  // route to load catalog.ejs
-});
-
-// Error handling for invalid routes
-app.use((req, res, next) => {
-  res.status(404).render('404', { title: 'Page Not Found', layout: 'layouts/layout' });
 });
 
 app.listen(port, () => console.log(`Server running at http://localhost:${port}`));
@@ -104,7 +99,7 @@ app.post('/submit', (req, res) => {
   const{fullname, email, phone, message} = req.body; //create variables from the data that was sent through the body of the request
   const newContact = {id: contacts.length + 1, fullname, email, phone, message};
   contacts.push(newContact); //add new contact to the contacts array
-  res.json({message: 'Thank you for your message. We will get back to you shortly.'});  //print out messsage if success
+  res.json({message: 'Thank you for your message. We will get back to you shortly.', data: newContact});  //print out messsage if success and display the submitted information
 });
 
 app.get('/contacts', (req, res) => {
@@ -147,3 +142,10 @@ app.delete('/contacts/:id', (req, res) => {
     res.status(404).json({message: 'Contact not found'}); //return 404 if not found  
   }
 });
+
+// Error handling for invalid routes
+app.use((req, res) => {
+  res.status(404).render('404', { title: 'Page Not Found', layout: 'layouts/layout' });
+});
+
+

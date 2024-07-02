@@ -1,0 +1,52 @@
+++++ Introduced bug (line 32 in server.js) ++++
+
+app.get('/contact', async function(req, res) {
+  res.rnder('contact', { title: 'Contact Page', layout: 'layouts/layout' });  // route to load contact.ejs
+});
+
+# Bug Report
+
+## Description
+There is a typo in the `res.render` method in the `/contact` route, causing the server to crash or not render the contact page correctly.
+
+## Steps to Reproduce
+1. Start the server by running `node server.js`.
+2. Navigate to `http://localhost:3000/contact` in your web browser.
+3. Observe the error message in the browser and the server console.
+
+## Expected Behavior
+The contact page should render correctly without any errors.
+
+## Actual Behavior
+The server throws an error, and the contact page does not render.
+
+## Error Message
+ res.rnder('contact', { title: 'Contact Page', layout: 'layouts/layout' });  // route to load contact.ejs
+      ^
+TypeError: res.rnder is not a function
+    at C:\Users\obinn\Desktop\MovieSiteJQ\server.js:32:7
+    at Layer.handle [as handle_request] (C:\Users\obinn\Desktop\MovieSiteJQ\node_modules\express\lib\router\layer.js:95:5)
+    at next (C:\Users\obinn\Desktop\MovieSiteJQ\node_modules\express\lib\router\route.js:149:13)
+    at Route.dispatch (C:\Users\obinn\Desktop\MovieSiteJQ\node_modules\express\lib\router\route.js:119:3)
+    at Layer.handle [as handle_request] (C:\Users\obinn\Desktop\MovieSiteJQ\node_modules\express\lib\router\layer.js:95:5)
+    at C:\Users\obinn\Desktop\MovieSiteJQ\node_modules\express\lib\router\index.js:284:15
+    at Function.process_params (C:\Users\obinn\Desktop\MovieSiteJQ\node_modules\express\lib\router\index.js:346:12) 
+    at next (C:\Users\obinn\Desktop\MovieSiteJQ\node_modules\express\lib\router\index.js:280:10)
+    at urlencodedParser (C:\Users\obinn\Desktop\MovieSiteJQ\node_modules\body-parser\lib\types\urlencoded.js:91:7)  
+    at Layer.handle [as handle_request] (C:\Users\obinn\Desktop\MovieSiteJQ\node_modules\express\lib\router\layer.js:95:5)
+
+
+## Debugging Process
+
+1. **Identify the Error**: The error message indicates that `res.rnder` is not a function. This suggests a typo in the method name.
+2. **Locate the Error**: The stack trace points to the specific line in `server.js` where the error occurs.
+3. **Fix the Typo**: Correct the typo from `res.rnder` to `res.render`.
+
+## Tools Used
+- **Browser**: To reproduce the error by navigating to the `/contact` route.
+- **Console/Terminal**: To observe the error message and stack trace.
+- **Code Editor**: To locate and fix the typo in the code.
+
+## Resolution
+Correct the typo in the `/contact` route.
+
