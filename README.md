@@ -9,10 +9,8 @@ Run "npm install" to add node_modules
 
 ++++ Implimentation +++++
 
-
-
 1. **Home Page Route**
-- **Description**: Renders the index.ejs view for the home page with the title "HomePage" using the specified layout.
+    - **Description**: Renders the index.ejs view for the home page with the title "HomePage" using the specified layout.
 
 2. **Index Page Route**
     - **Description**: Renders the `index.ejs` view for the index page with the title "HomePage" using the specified layout. This route is essentially a duplicate of the home page route.
