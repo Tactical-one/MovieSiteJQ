@@ -4,6 +4,26 @@ const expressLayouts = require('express-ejs-layouts');
 const bodyParser = require('body-parser');
 const port = 3000;
 const path = require('path');
+const sqlite3 = require('sqlite3').verbose();
+
+// Connect to the database
+let db = new sqlite3.Database('./moviesite.sqlite3', (err) => { 
+  if (err) {
+    return console.error(err.message);
+   } 
+   console.log('Connected to the moviesite database.');
+   }); 
+
+// close the database connection after the server is closed
+app.on('close', () => {
+  db.close((err) => {
+    if (err) {
+      return console.error(err.message);
+    }
+    console.log('Closed the database connection.');
+    app.exit();
+  });
+});
 
 app.use(express.static(path.join(__dirname, 'public'))) //gives the server access to this folder's resources to load within our route
 app.set('view engine', 'ejs'); //set the view engine to ejs
@@ -29,7 +49,7 @@ app.get('/inspiration', async function(req, res) {
 });
 
 app.get('/contact', async function(req, res) {
-  res.rnder('contact', { title: 'Contact Page', layout: 'layouts/layout' });  // route to load contact.ejs
+  res.render('contact', { title: 'Contact Page', layout: 'layouts/layout' });  // route to load contact.ejs
 });
 
 app.get('/packages', async function(req, res) {
@@ -57,35 +77,35 @@ const articles = [
     altText: "Bridgerton",
     date: "11 Nov 2024",
     title: "Bridgerton",
-    summary: "Replacing worn chains with the same model from the same brand is easy, but even this is fraught with complications."
+    summary: "A romantic drama series set in the Regency era."
   },
   {
     imageSrc: "https://www.sky.at/static/img/serienhighlights/sky_22-11_house-of-the-dragon_sub_s.jpg",
     altText: "House of the Dragon",
     date: "5 Oct 2024",
     title: "House of the Dragon",
-    summary: "Different riding styles call for purpose-built bike seats. These expert-approved saddles earned our recommendation."
+    summary: "A prequel to Game of Thrones, focusing on the Targaryen family."
   },
   {
     imageSrc: "https://lumiere-a.akamaihd.net/v1/images/the-acolyte-cast-article-feature_e52a6450.jpeg?region=0,50,1600,800",
     altText: "The Acolyte",
     date: "29 Sep 2024",
     title: "The Acolyte",
-    summary: "Different riding styles call for purpose-built bike seats. These expert-approved saddles earned our recommendation."
+    summary: "A Star Wars series exploring the dark side of the Force."
   },
   {
     imageSrc: "https://flixchatter.net/wp-content/uploads/2020/10/enolaholmes-poster.jpg",
     altText: "Enola Holmes",
     date: "5 Aug 2024",
     title: "Enola Holmes",
-    summary: "Different riding styles call for purpose-built bike seats. These expert-approved saddles earned our recommendation."
+    summary: "A mystery adventure featuring Sherlock Holmes' younger sister."
   },
   {
     imageSrc: "https://i.ytimg.com/vi/N70NfvtOINI/maxresdefault.jpg",
     altText: "The Crown",
     date: "5 Oct 2024",
     title: "The Crown",
-    summary: "Different riding styles call for purpose-built bike seats. These expert-approved saddles earned our recommendation."
+    summary: "A historical drama about the reign of Queen Elizabeth II."
   }
   // ... add more articles as needed
 ];
@@ -147,5 +167,3 @@ app.delete('/contacts/:id', (req, res) => {
 app.use((req, res) => {
   res.status(404).render('404', { title: 'Page Not Found', layout: 'layouts/layout' });
 });
-
-
