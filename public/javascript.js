@@ -46,3 +46,85 @@ $(document).ready(function(){
 
 });
 
+    // dashboard code
+    $('#editSearchedMovie').on('click', function() {
+        const movieTitle = $('#movieSearch').val().trim();
+        if (!movieTitle) {
+            alert('Please enter a movie title to search.');
+            return;
+        }
+    
+        const button = $(this);
+    
+        if (button.text() === 'Edit') {
+            $.ajax({
+                url: '/search-movie',
+                method: 'GET',
+                data: { title: movieTitle },
+                success: function(movie) {
+                    if (movie) {
+                        currentEditingMovie = movie;
+                        const row = $(`tr[data-id="${movie.id}"]`);
+                        row.find('.editable').attr('contenteditable', true).addClass('editing');
+                        button.text('Save');
+                    } else {
+                        alert('Movie not found.');
+                    }
+                },
+                error: function() {
+                    alert('Error searching for movie.');
+                }
+            });
+        } else {  //editing movie details
+            if (currentEditingMovie) {
+                const row = $(`tr[data-id="${currentEditingMovie.id}"]`);
+                const updatedData = {};
+                row.find('.editable').each(function() {
+                    updatedData[$(this).data('field')] = $(this).text();
+                });
+    
+                $.ajax({
+                    url: '/update-movie/' + currentEditingMovie.id,
+                    method: 'POST',
+                    contentType: 'application/json',
+                    data: JSON.stringify(updatedData),
+                    success: function() {
+                        alert('Movie updated successfully');
+                        row.find('.editable').attr('contenteditable', false).removeClass('editing');
+                        button.text('Edit');
+                        currentEditingMovie = null;
+                    },
+                    error: function() {
+                        alert('Error updating movie');
+                    }
+                });
+            }
+        }
+    });
+    
+        // delete movie from database
+    $('#deleteSearchedMovie').on('click', function() {
+        const movieTitle = $('#movieSearch').val().trim();
+        if (!movieTitle) {
+            alert('Please enter a movie title to delete.');
+            return;
+        }
+    
+        if (confirm('Are you sure you want to delete this movie?')) {
+            $.ajax({
+                url: '/delete-movie-by-title',
+                method: 'POST',
+                contentType: 'application/json',
+                data: JSON.stringify({ title: movieTitle }),
+                success: function() {
+                    alert('Movie deleted successfully');
+                    $(`tr:contains("${movieTitle}")`).remove();
+                    $('#movieSearch').val('');
+                },
+                error: function() {
+                    alert('Error deleting movie');
+                }
+            });
+        }
+    });
+    

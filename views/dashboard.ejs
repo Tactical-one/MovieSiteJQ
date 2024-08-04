@@ -1,0 +1,248 @@
+<!-- Dashboard page -->
+
+<div class="navbar navbar-inverse set-radius-zero" >
+    <div class="container">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                <span class="icon-bar"></span>
+            </button>
+
+        </div>
+
+        <div class="right-div">
+            <a href="#" class="btn btn-danger pull-right">LOG ME OUT</a>
+        </div>
+    </div>
+</div>
+<!-- LOGO HEADER END-->
+
+ <!-- MENU SECTION END-->
+<div class="content-wrapper">
+     <div class="container">
+    <div class="row pad-botm">
+        <div class="col-md-12">
+            <h4 class="header-line">ADMIN DASHBOARD</h4>
+            
+                        </div>
+
+    </div>
+         
+         <div class="row">
+        
+             <div class="col-md-3 col-sm-3 col-xs-6">
+                  <div class="alert alert-info back-widget-set text-center">
+                        <i class="fa fa-history fa-5x"></i>
+                        <h3>500+&nbsp; <i class="fa fa-dollar"></i></h3>
+                       Amount Pending For Approval
+                    </div>
+                </div>
+          <div class="col-md-3 col-sm-3 col-xs-6">
+                  <div class="alert alert-success back-widget-set text-center">
+                        <i class="fa fa-bars fa-5x"></i>
+                        <h3>300+ Tasks</h3>
+                        Pending For New Events
+                    </div>
+                </div>
+           <div class="col-md-3 col-sm-3 col-xs-6">
+                  <div class="alert alert-warning back-widget-set text-center">
+                        <i class="fa fa-recycle fa-5x"></i>
+                        <h3>56+ Calls</h3>
+                       To Be Made For New Orders
+                    </div>
+                </div>
+           <div class="col-md-3 col-sm-3 col-xs-6">
+                  <div class="alert alert-danger back-widget-set text-center">
+                        <i class="fa fa-briefcase fa-5x"></i>
+                        <h3>30+ Issues </h3>
+                        That Should Be Resolved Now
+                    </div>
+                </div>
+
+    </div>              
+         <div class="row">
+          <div class="col-md-8 col-sm-8 col-xs-12">
+            <div id="carouselExampleIndicators" class="carousel slide">
+                <div class="carousel-indicators">
+                  <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
+                  <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="1" aria-label="Slide 2"></button>
+                  <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="2" aria-label="Slide 3"></button>
+                </div>
+                <div class="carousel-inner">
+                  <div class="carousel-item active">
+                    <img src="https://lightbox-prod.imgix.net/images/assets/BANNER_WIDE_mac_sh_132781_63F2E179-6F3E-4852-AC46CA9E7A32E17B.jpg" class="d-block w-100" alt="...">
+                  </div>
+                  <div class="carousel-item">
+                    <img src="https://assets.aboutamazon.com/dims4/default/0815d77/2147483647/strip/true/crop/2548x1434+1+0/resize/2640x1486!/quality/90/?url=https%3A%2F%2Famazon-blogs-brightspot.s3.amazonaws.com%2F34%2F65%2Ffb00aebc49a7985bc9571d042264%2Ffull-width-mobile-first-hero-2550x1434.jpg" class="d-block w-100" alt="...">
+                  </div>
+                  <div class="carousel-item">
+                    <img src="https://s.yimg.com/ny/api/res/1.2/LxlYi3fZRWocpJneZIpUwQ--/YXBwaWQ9aGlnaGxhbmRlcjt3PTEyMDA7aD03NTE-/https://s.yimg.com/os/creatr-uploaded-images/2024-01/80c823e0-b66b-11ee-9fed-d1818825c499" class="d-block w-100" alt="...">
+                  </div>
+                </div>
+                <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="prev">
+                  <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                  <span class="visually-hidden">Previous</span>
+                </button>
+                <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="next">
+                  <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                  <span class="visually-hidden">Next</span>
+                </button>
+              </div>
+          </div>
+             
+             <div class="col-md-4 col-sm-4 col-xs-12">
+             <div class="panel panel-primary ">
+                    <div class="panel-heading">
+                        Recent Chat History
+                    </div>
+                    <div class="panel-body chat-widget-main">
+                        <% const chatMessages = [
+                            { content: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Lorem ipsum dolor.', user: 'Amanna Seiar', time: '2:00 pm at 25th july' },
+                            { content: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Lorem ipsum dolor sit amet.', user: 'John Doe', time: '2:15 pm at 25th july' },
+                            { content: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Lorem ipsum dolor sit amet.', user: 'Jane Smith', time: '2:30 pm at 25th july' }
+                        ]; %>
+                    
+                        <% chatMessages.forEach(message => { %>
+                            <div class="chat-widget-left">
+                                <%= message.content %>
+                            </div>
+                            <div class="chat-widget-name-left">
+                                <img class="media-object img-circle img-left-chat" src="assets/img/user2.png" />
+                                <h4><%= message.user %></h4>
+                                <h5><%= message.time %></h5>
+                            </div>
+                            <hr />
+                        <% }); %>
+                    </div>
+
+                </div>
+         </div>
+         
+             </div>
+        
+
+             <div class="row">
+                <div class="col-md-8 col-sm-8 col-xs-12">
+                    <div class="panel panel-success">
+                        <div class="panel-heading">
+                            Movies Table
+                        </div>
+                        <div class="panel-body">
+                            <div class="form-group">
+                                <div class="input-group">
+                                    <input type="text" id="movieSearch" class="form-control" placeholder="Search movie by name" style="margin-right: 5px;">
+                                    <span class="input-group-btn">
+                                        <button id="editSearchedMovie" class="btn btn-primary">Edit</button>
+                                        <button id="deleteSearchedMovie" class="btn btn-danger">Delete</button>
+                                    </span>
+                                </div>
+                            </div>
+                            <div class="table-responsive">
+                                <table class="table table-striped table-bordered table-hover">
+                                    <thead>
+                                        <tr>
+                                            <th>#</th>
+                                            <th>Title</th>
+                                            <th>Summary</th>
+                                            <th>Year</th>
+                                            <th>Alt Text</th>
+                                            <th>Poster</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="movieTableBody">
+                                        <% movies.forEach((movie, index) => { %>
+                                            <tr data-id="<%= movie.id %>">
+                                                <td><%= index + 1 %></td>
+                                                <td><span class="editable" data-field="title"><%= movie.title %></span></td>
+                                                <td><span class="editable" data-field="summary"><%= movie.summary %></span></td>
+                                                <td><span class="editable" data-field="year"><%= movie.year %></span></td>
+                                                <td><span class="editable" data-field="alttext"><%= movie.alttext %></span></td>
+                                                <td>
+                                                    <img src="<%= movie.poster %>" alt="<%= movie.alttext %>" width="50">
+                                                </td>
+                                            </tr>
+                                        <% }); %>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+         <div class="col-md-4 col-sm-4 col-xs-12" >
+            <div class="alert alert-info text-center">
+              <h3> IMPORTANT NOTICE</h3> 
+              <hr />
+                <i class="fa fa-warning fa-4x"></i>
+              <p>
+             Lorem ipsum dolor sit amet, consectetur adipiscing elit gthn.
+               Lorem ipsum dolor sit amet, consectetur adipiscing elit gthn.
+                   Lorem ipsum dolor sit amet, consectetur adipiscing elit gthn.
+                   Lorem ipsum dolor sit amet.
+            </p>
+              <hr />
+               <a href="#" class="btn btn-info">Read Full Detalis</a> 
+            </div>
+         
+         </div>
+         
+        <div class="row">
+            <div class="col-md-6">
+                 <div class="panel panel-info">
+                    <div class="panel-heading">
+                        Upload a Movie
+                    </div>
+                    <div class="panel-body">
+                        <form role="form">
+                                    <div class="form-group">
+                                        <label>Movie Title</label>
+                                        <input class="form-control" type="text" />
+                                    </div>
+                             <div class="form-group">
+                                        <label>Movie Summary</label>
+                                        <input class="form-control" type="text" />
+                                    </div>
+                            <div class="form-group">
+                                        <label>Movie Year</label>
+                                        <input class="form-control" type="text" />
+                                    </div>
+                            <div class="form-group">
+                                        <label>Alt Text</label>
+                                        <input class="form-control" type="text" />
+                                    </div>        
+                             <div class="form-group">
+                                        <label>Movie Poster Link</label>
+                                        <input class="form-control" type="text" style="min-height:50px;" />
+                                    </div>
+                                   <!--
+                                    <div class="form-group">
+                                        <label>Attach File </label>
+                                        <input type="file" />
+                                    </div>
+                                    
+                                    <div class="form-group">
+                                        <label>For Role </label>
+                                        <div class="checkbox">
+                                            <label>
+                                                <input type="checkbox" value="" />Admin
+                                            </label>
+                                        </div>
+                                        <div class="checkbox">
+                                            <label>
+                                                <input type="checkbox" value="" />User
+                                            </label>
+                                        </div>
+                                    </div>
+                                    -->
+                                   
+                                    <button type="submit" class="btn btn-success">Submit</button>
+                                    <button type="reset" class="btn btn-primary">Reset Fields</button>
+
+                                </form>
+                        </div>
+                    </div>
+            </div>
+
+        </div>
+
+</div>
+</div>
