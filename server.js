@@ -73,10 +73,22 @@ function insertData(tableName, data) {
   });
 }
 
-// insert example data into the movies table
+// insert 2 example data into the movies & contacts table upon server start
 insertData('movies', { title: 'Civil War', summary: 'A journey across a dystopian future America, following a team of military-embedded journalists as they race against time to reach DC before rebel factions descend upon the White House.', year: 2024, alttext: 'Civil War', poster: 'https://substackcdn.com/image/fetch/f_auto,q_auto:good,fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2F669e71fe-0f5c-48b8-987b-be8d0bde14f1_1280x720.jpeg' });
 
- 
+insertData('movies', { title: 'Bridgerton', summary: 'A romantic drama series set in the Regency era.', year: 2024, alttext: 'Bridgerton', poster: 'https://i1.wp.com/cornellsun.com/wp-content/uploads/2023/06/bridgerton-scaled.jpg?fit=1170%2C658&ssl=1' }); // movie 2
+
+// example data for contacts table
+const randomContacts = [
+  { fullname: 'John Doe', email: 'john@example.com', phone: '123-456-7890', message: 'Hello!' },
+  { fullname: 'Jane Smith', email: 'jane@example.com', phone: '987-654-3210', message: 'Hi there!, I would like to request a movie from the 90s' },
+  { fullname: 'Alice Johnson', email: 'alice@example.com', phone: '555-123-4567', message: 'Good day! Do you have Alice in Wonderland?' },
+];
+
+// Insert random contact data
+randomContacts.forEach(contact => insertData('contacts', contact));
+
+
 // Route to search a movie by title
 app.get('/search-movie', (req, res) => {
   const movieTitle = req.query.title;
@@ -100,6 +112,7 @@ app.post('/update-movie/:id', (req, res) => {
   const movieId = req.params.id;
   const { title, summary, year } = req.body;
   if (!title || !summary || !year) {
+      console.log('All fields are required');
       return res.status(400).json({ error: 'All fields are required' });
   }
   db.run("UPDATE movies SET title = ?, summary = ?, year = ? WHERE id = ?", [title, summary, year, movieId], function(err) {
@@ -108,6 +121,7 @@ app.post('/update-movie/:id', (req, res) => {
       }
       if (this.changes > 0) {
           res.json({ id: movieId, title, summary, year });
+          console.log('Movie updated successfully');
       } else {
           res.status(404).json({ error: 'Movie not found' });
       }
@@ -132,9 +146,42 @@ app.post('/delete-movie-by-title', (req, res) => {
   });
 });
 
+// Route to insert a new movie from form
+app.post('/insert-movie', (req, res) => {
+  const { title, summary, year, alttext, poster } = req.body;
+  
+  if (!title || !summary || !year || !alttext || !poster) {
+    return res.status(400).json({ success: false, message: 'All fields are required' });
+  }
+
+  const movieData = {
+    title,
+    summary,
+    year: parseInt(year),
+    alttext,
+    poster
+  };
+
+  insertData('movies', movieData); // insert new movie
+  
+  res.json({ success: true, message: 'Movie added successfully' });
+});
+
+// Route to get all movies
+app.get('/get-movies', (req, res) => {
+  const sql = 'SELECT * FROM movies ORDER BY id DESC';
+  db.all(sql, [], (err, rows) => {
+      if (err) {
+          res.status(500).json({ error: err.message });
+          return;
+      }
+      res.json(rows);
+  });
+});
 
 
-// *****************     ROUTES     ********************************
+
+// *****************  PAGE ROUTES     ********************************
 
 app.get('/', async function(req, res) {
   res.render('index', { title: 'HomePage', layout: 'layouts/layout' });  // route to load index.ejs
@@ -161,15 +208,25 @@ app.get('/catalog', async function(req, res) {
 });
 
 app.get('/dashboard', async function(req, res) {
-  db.all('SELECT * FROM movies ORDER BY year DESC', [], (err, movies) => {
+  db.all('SELECT * FROM movies ORDER BY year DESC', [], (err, movies) => { // Fetch movies from the database
     if (err) {
       console.error('Error fetching movies:', err);
-      movies = [];
+      movies = []; // Set movies to an empty array if an error occurs
     }
-    res.render('dashboard', { 
-      title: 'Dashboard Page', 
-      layout: 'layouts/layout',
-      movies: movies
+    
+  db.all('SELECT * FROM contacts', [], (err, contacts) => {  // Fetch contacts from the database
+      if (err) {
+        console.error('Error fetching contacts:', err);
+        contacts = [];  // Set contacts to an empty array if an error occurs
+      }
+      res.render('dashboard', { 
+        title: 'Dashboard Page', 
+        layout: 'layouts/layout',
+        movies: movies, // Include movies in the render
+        movieCount: movies.length, // Include movieCount in the render
+        contacts: contacts, // Include contacts in the render
+        contactCount: contacts.length, // Include contactCount in the render
+      });
     });
   });
 });

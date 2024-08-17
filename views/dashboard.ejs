@@ -31,30 +31,30 @@
         
              <div class="col-md-3 col-sm-3 col-xs-6">
                   <div class="alert alert-info back-widget-set text-center">
-                        <i class="fa fa-history fa-5x"></i>
-                        <h3>500+&nbsp; <i class="fa fa-dollar"></i></h3>
-                       Amount Pending For Approval
+                        <i class="fa fa-money fa-5x"></i>
+                        <h3>13k+&nbsp; <i class="fa fa-dollar"></i></h3>
+                       Amount Generated
                     </div>
                 </div>
           <div class="col-md-3 col-sm-3 col-xs-6">
                   <div class="alert alert-success back-widget-set text-center">
-                        <i class="fa fa-bars fa-5x"></i>
-                        <h3>300+ Tasks</h3>
-                        Pending For New Events
+                        <i class="fa fa-film fa-5x"></i>
+                        <h3><%= movieCount %> Movies</h3>
+                        Total Movies in Database
                     </div>
                 </div>
            <div class="col-md-3 col-sm-3 col-xs-6">
                   <div class="alert alert-warning back-widget-set text-center">
-                        <i class="fa fa-recycle fa-5x"></i>
-                        <h3>56+ Calls</h3>
-                       To Be Made For New Orders
+                        <i class="fa fa-users fa-5x"></i>
+                        <h3>56+ Subscibers</h3>
+                       Total Subscibers
                     </div>
                 </div>
            <div class="col-md-3 col-sm-3 col-xs-6">
                   <div class="alert alert-danger back-widget-set text-center">
-                        <i class="fa fa-briefcase fa-5x"></i>
-                        <h3>30+ Issues </h3>
-                        That Should Be Resolved Now
+                        <i class="fa fa-envelope fa-5x"></i>
+                        <h3><%= contactCount %> Messages </h3>
+                        Total Messages
                     </div>
                 </div>
 
@@ -95,20 +95,14 @@
                         Recent Chat History
                     </div>
                     <div class="panel-body chat-widget-main">
-                        <% const chatMessages = [
-                            { content: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Lorem ipsum dolor.', user: 'Amanna Seiar', time: '2:00 pm at 25th july' },
-                            { content: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Lorem ipsum dolor sit amet.', user: 'John Doe', time: '2:15 pm at 25th july' },
-                            { content: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Lorem ipsum dolor sit amet.', user: 'Jane Smith', time: '2:30 pm at 25th july' }
-                        ]; %>
-                    
-                        <% chatMessages.forEach(message => { %>
+                        <% contacts.forEach(contact => { %> <!-- Use contacts passed from the server -->
                             <div class="chat-widget-left">
-                                <%= message.content %>
+                                <%= contact.message %> <!-- Assuming 'message' is a field in the contacts table -->
                             </div>
                             <div class="chat-widget-name-left">
-                                <img class="media-object img-circle img-left-chat" src="assets/img/user2.png" />
-                                <h4><%= message.user %></h4>
-                                <h5><%= message.time %></h5>
+                                <img class="media-object img-circle img-left-chat" src="https://www.freeiconspng.com/uploads/profile-icon-9.png" width="35" alt="User Avatar"/>
+                                <h4><%= contact.fullname %> [<%= contact.email %>]</h4> <!-- Display contact's fullname -->
+                                <h5><%= contact.phone %></h5> <!-- Display contact's phone -->
                             </div>
                             <hr />
                         <% }); %>
@@ -187,32 +181,32 @@
          
         <div class="row">
             <div class="col-md-6">
-                 <div class="panel panel-info">
+                <div class="panel panel-info">
                     <div class="panel-heading">
                         Upload a Movie
                     </div>
                     <div class="panel-body">
-                        <form role="form">
-                                    <div class="form-group">
-                                        <label>Movie Title</label>
-                                        <input class="form-control" type="text" />
-                                    </div>
-                             <div class="form-group">
-                                        <label>Movie Summary</label>
-                                        <input class="form-control" type="text" />
-                                    </div>
+                        <form id="movieForm" role="form">
                             <div class="form-group">
-                                        <label>Movie Year</label>
-                                        <input class="form-control" type="text" />
-                                    </div>
+                                <label>Movie Title</label>
+                                <input class="form-control" type="text" name="title" required />
+                            </div>
                             <div class="form-group">
-                                        <label>Alt Text</label>
-                                        <input class="form-control" type="text" />
-                                    </div>        
-                             <div class="form-group">
-                                        <label>Movie Poster Link</label>
-                                        <input class="form-control" type="text" style="min-height:50px;" />
-                                    </div>
+                                <label>Movie Summary</label>
+                                <input class="form-control" type="text" name="summary" required />
+                            </div>
+                            <div class="form-group">
+                                <label>Movie Year</label>
+                                <input class="form-control" type="number" name="year" required />
+                            </div>
+                            <div class="form-group">
+                                <label>Alt Text</label>
+                                <input class="form-control" type="text" name="alttext" required />
+                            </div>        
+                            <div class="form-group">
+                                <label>Movie Poster Link</label>
+                                <input class="form-control" type="url" name="poster" style="min-height:50px;" required />
+                            </div>
                                    <!--
                                     <div class="form-group">
                                         <label>Attach File </label>

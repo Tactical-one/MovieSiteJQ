@@ -1,3 +1,4 @@
+//****************  index page code    **************************/
 $(document).ready(function(){
 	// Add minus icon for collapse element which is open by default
 	$(".collapse.show").each(function(){
@@ -46,7 +47,7 @@ $(document).ready(function(){
 
 });
 
-    // dashboard code
+    // **************  dashboard code   ************//
     $('#editSearchedMovie').on('click', function() {
         const movieTitle = $('#movieSearch').val().trim();
         if (!movieTitle) {
@@ -72,7 +73,7 @@ $(document).ready(function(){
                     }
                 },
                 error: function() {
-                    alert('Error searching for movie.');
+                    alert('Movie not found.');
                 }
             });
         } else {  //editing movie details
@@ -127,4 +128,60 @@ $(document).ready(function(){
             });
         }
     });
+
+    //********** Movie Form js to insert data into db ******************/
+    document.getElementById('movieForm').addEventListener('submit', function(e) {
+        e.preventDefault();
+        
+        const formData = new FormData(this);
+        const movieData = Object.fromEntries(formData.entries());
     
+        fetch('/insert-movie', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(movieData),
+        })
+        .then(response => response.json())
+        .then(data => {
+            if (data.success) {
+                alert('Movie added successfully!');
+                this.reset();
+                refreshMovieTable();
+            } else {
+                alert('Error adding movie: ' + data.message);
+            }
+        })
+        .catch(error => {
+            console.error('Error:', error);
+            alert('An error occurred while adding the movie.');
+        });
+    });
+    
+    function refreshMovieTable() {
+        fetch('/get-movies')
+            .then(response => response.json())
+            .then(movies => {
+                const tableBody = document.getElementById('movieTableBody');
+                tableBody.innerHTML = '';
+                movies.forEach((movie, index) => {
+                    const row = `
+                        <tr data-id="${movie.id}">
+                            <td>${index + 1}</td>
+                            <td><span class="editable" data-field="title">${movie.title}</span></td>
+                            <td><span class="editable" data-field="summary">${movie.summary}</span></td>
+                            <td><span class="editable" data-field="year">${movie.year}</span></td>
+                            <td><span class="editable" data-field="alttext">${movie.alttext}</span></td>
+                            <td>
+                                <img src="${movie.poster}" alt="${movie.alttext}" width="50">
+                            </td>
+                        </tr>
+                    `;
+                    tableBody.innerHTML += row;
+                });
+            })
+            .catch(error => {
+                console.error('Error refreshing movie table:', error);
+            });
+    }
